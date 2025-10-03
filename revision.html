@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profiles, Summary & Dashboard — Home Security</title>
+  <style>
+    :root{
+      --card-bg: #ffffff;
+      --page-bg: #f3f6fb;
+      --accent: #5061f5;
+      --muted: #6b7280;
+      --radius: 12px;
+      --shadow: 0 6px 18px rgba(16,24,40,0.08);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--page-bg);color:#0f172a;padding:32px}
+
+    button{
+      border:0;padding:10px 18px;border-radius:10px;
+      background:var(--accent);color:white;font-weight:600;
+      cursor:pointer;transition:all .2s ease;
+    }
+    button:hover{background:#3243d6}
+
+    .container{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .profile-card{
+      background:var(--card-bg);border-radius:var(--radius);
+      box-shadow:var(--shadow);padding:18px;display:flex;gap:16px;align-items:center;
+    }
+    .avatar{width:96px;height:96px;border-radius:14px;overflow:hidden}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .info{flex:1}
+    .name{font-size:1.05rem;font-weight:700;margin:0}
+    .role{margin:4px 0;color:var(--muted);font-size:.92rem}
+    .bio{margin:8px 0 12px;color:#334155;line-height:1.35}
+
+    /* hide inactive sections */
+    #summary, #dashboard{display:none}
+
+    /* dashboard */
+    .sensors{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px}
+    .sensor-card{
+      background:var(--card-bg);padding:16px;border-radius:var(--radius);
+      box-shadow:var(--shadow);text-align:left;
+    }
+    .sensor-card img{width:100%;border-radius:8px;margin-bottom:10px}
+    .sensor-status.ok{color:green;font-weight:600}
+    .sensor-status.alert{color:red;font-weight:600}
+  </style>
+</head>
+<body>
+
+  <!-- PROFILES -->
+  <section id="profiles">
+    <h1 style="text-align:center">PROFILES</h1>
+    <div class="container">
+      <article class="profile-card">
+        <figure class="avatar"><img src="WhatsApp Image 2025-09-29 at 10.50.26.jpeg" alt="Ruth"></figure>
+        <div class="info">
+          <h2 class="name">Ruth NIYOGUSHIMWA</h2>
+          <div class="role">IoT System Engineer</div>
+          <p class="bio">I build home security monitoring systems to enjoy automatic technology and surveillance.</p>
+        </div>
+      </article>
+      <article class="profile-card">
+        <figure class="avatar"><img src="download.jpg" alt="Samuel"></figure>
+        <div class="info">
+          <h2 class="name">IRUMVA Samuel</h2>
+          <div class="role">IoT Engineer</div>
+          <p class="bio">I prototype hardware and write firmware for sensors and embedded devices.</p>
+        </div>
+      </article>
+    </div>
+    <div style="text-align:center;margin:30px 0;">
+      <button onclick="goToSummary()">➡ Continue to Project Summary</button>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary">
+    <h1 style="text-align:center">Project Summary & Materials</h1>
+    <ul>
+      <li>PIR Motion Sensor</li>
+      <li>Smoke Sensor (MQ-2)</li>
+      <li>Door & Window Sensor</li>
+      <li>Flame Detector</li>
+      <li>Gas Sensor</li>
+      <li>Current Sensor</li>
+      <li>Camera Module</li>
+      <li>Microcontroller</li>
+    </ul>
+    <p><strong>Summary:</strong> The system continuously monitors environmental changes and streams camera feeds. Alerts are generated in case of abnormalities for better security.</p>
+
+    <div style="text-align:center;margin:30px 0;">
+      <button onclick="goToDashboard()">➡ Enter Dashboard</button>
+      <button onclick="goToProfiles()">⬅ Back to Profiles</button>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard">
+    <h1>Home Security Monitoring Dashboard</h1>
+    <div class="sensors">
+      <div class="sensor-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/PIR_Sensor.jpg">
+        <h3>PIR Motion Sensor</h3>
+        <p>Status: <span class="sensor-status ok">Idle</span></p>
+      </div>
+      <div class="sensor-card">
+        <img src="https://www.electronicwings.com/storage/PlatformSection/TopicContent/64/description/MQ-2.jpg">
+        <h3>Smoke Sensor</h3>
+        <p>Status: <span class="sensor-status ok">Clear</span></p>
+      </div>
+      <div class="sensor-card">
+        <img src="https://www.electronicshub.org/wp-content/uploads/2015/08/Reed-Switch-Door-Sensor.jpg">
+        <h3>Door & Window Sensor</h3>
+        <p>Status: <span class="sensor-status ok">Closed</span></p>
+      </div>
+      <div class="sensor-card">
+        <img src="https://components101.com/sites/default/files/component_pin/Flame-Sensor-Module.jpg">
+        <h3>Fire Detector</h3>
+        <p>Status: <span class="sensor-status ok">Safe</span></p>
+      </div>
+      <div class="sensor-card">
+        <img src="https://components101.com/sites/default/files/component_pin/MQ-5-Gas-Sensor.jpg">
+        <h3>Gas Sensor</h3>
+        <p>Status: <span class="sensor-status ok">No Leak</span></p>
+      </div>
+      <div class="sensor-card">
+        <img src="https://components101.com/sites/default/files/component_pin/ACS712-Current-Sensor-Module.jpg">
+        <h3>Current Sensor</h3>
+        <p>Status: <span class="sensor-status ok">Normal</span></p>
+      </div>
+      <div class="sensor-card">
+        <img src="https://www.researchgate.net/profile/Nor-Azura-Adam/publication/328999445/figure/fig2/AS:698911803338752@1542279621527/ESP32-CAM-module.jpg">
+        <h3>Camera</h3>
+        <p>Status: <span class="sensor-status ok">Active</span></p>
+      </div>
+    </div>
+    <div style="margin-top:30px;">
+      <button onclick="goToSummary()">⬅ Back to Summary</button>
+    </div>
+  </section>
+
+  <script>
+    function goToSummary(){
+      document.getElementById('profiles').style.display = 'none';
+      document.getElementById('summary').style.display = 'block';
+      document.getElementById('dashboard').style.display = 'none';
+    }
+    function goToDashboard(){
+      document.getElementById('profiles').style.display = 'none';
+      document.getElementById('summary').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+    }
+    function goToProfiles(){
+      document.getElementById('profiles').style.display = 'block';
+      document.getElementById('summary').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
