@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Two Profiles — Example</title>
+  <style>
+    :root{
+      --card-bg: #ffffff;
+      --page-bg: #f3f6fb;
+      --accent: #5061f5;
+      --muted: #6b7280;
+      --radius: 12px;
+      --shadow: 0 6px 18px rgba(16,24,40,0.08);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--page-bg);color:#0f172a;padding:32px}
+
+    .container{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+
+    .profile-card{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:flex;gap:16px;align-items:center;transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .profile-card:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(16,24,40,0.12)}
+
+    .avatar{
+      width:96px;height:96px;border-radius:14px;flex:0 0 96px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef2ff,#e6f0ff);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .info{flex:1}
+    .name{font-size:1.05rem;font-weight:700;margin:0}
+    .role{margin:4px 0;color:var(--muted);font-size:.92rem}
+    .bio{margin:8px 0 12px;color:#334155;line-height:1.35}
+
+    .meta{display:flex;gap:10px;align-items:center}
+    .meta .pill{background:#f1f5f9;padding:6px 9px;border-radius:999px;font-size:.82rem;color:#334155}
+
+    .actions{display:flex;gap:8px}
+    button{border:0;padding:8px 12px;border-radius:10px;background:var(--accent);color:white;font-weight:600;cursor:pointer}
+    button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(80,97,245,0.14)}
+
+    /* small utilities */
+    .muted{color:var(--muted);font-size:.88rem}
+    .email{font-size:.88rem;color:#0f172a}
+
+    /* responsive: stack avatar on top for narrow screens */
+    @media (max-width:420px){
+      .profile-card{flex-direction:column;align-items:flex-start}
+      .avatar{width:100%;height:160px;border-radius:10px}
+      .name{font-size:1.15rem}
+      button{width:100%}
+      .actions{width:100%;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;margin:0 0 22px;font-size:1.3rem">PROFILES</h1>
+
+  <div class="container">
+
+    <!-- Profile 1 -->
+    <article class="profile-card">
+      <figure class="avatar" aria-hidden="true">
+        <img src="WhatsApp Image 2025-09-29 at 10.50.26.jpeg" alt="Person 1">
+      </figure>
+      <div class="info">
+        <h2 class="name" contenteditable="true">Ruth NIYOGUSHIMWA</h2>
+        <div class="role" contenteditable="true">IOT_System engineer</div>
+        <p class="bio" contenteditable="true"> I build home security monitoring system to enjoy automatic technology, and survivance </p>
+
+        <div class="meta">
+          <div>
+            <div class="muted">Email</div>
+            <div class="email" contenteditable="true">niyogushimwaruth@gmail.com</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="actions">
+            <button onclick="alert('Contact Ruth via email: niyogushimwaruth@gmail.com')">Contact</button>
+            <button class="ghost" onclick="  copyProfile(0)">Copy</button>
+          </div>
+        </div>
+      </div>
+    </article>
+    <!-- Profile 2 -->
+    <article class="profile-card">
+      <figure class="avatar" aria-hidden="true">
+        <img src="download.jpg" alt="Person 2">
+      </figure>
+      <div class="info">
+        <h2 class="name" contenteditable="true">IRUMVA Samuel</h2>
+        <div class="role" contenteditable="true">IoT Engineer</div>
+        <p class="bio" contenteditable="true">I prototype hardware and write firmware for sensors and small embedded devices. I love debugging boards at 2AM.</p>
+
+        <div class="meta">
+          <div>
+            <div class="muted">Email</div>
+            <div class="email" contenteditable="true">irumvasamuel@gmail.com</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="actions">
+            <button onclick="alert('Contact Samuel via email: irumvasamuel@gmail.com')">Contact</button>
+            <button class="ghost" onclick="copyProfile(1)">Copy</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <script>
+    // Copy profile text to clipboard (simple helper)
+    function copyProfile(index){
+      const cards = document.querySelectorAll('.profile-card');
+      const card = cards[index];
+      if(!card) return;
+      const name = card.querySelector('.name').innerText.trim();
+      const role = card.querySelector('.role').innerText.trim();
+      const bio = card.querySelector('.bio').innerText.trim();
+      const email = card.querySelector('.email').innerText.trim();
+      const text = `Name: ${name}\nRole: ${role}\nEmail: ${email}\nBio: ${bio}`;
+      navigator.clipboard?.writeText(text).then(()=>{
+        alert('Profile copied to clipboard:\n\n' + text);
+      }).catch(()=>{
+        prompt('Copy this manually:', text);
+      });
+    }
+
+    // Accessibility: make contenteditable fields show a subtle outline on focus
+    document.addEventListener('focusin', e => {
+      const el = e.target;
+      if(el.isContentEditable){
+        el.style.outline = '3px solid rgba(80,97,245,0.12)';
+        el.style.borderRadius = '6px';
+        el.style.padding = '2px';
+      }
+    });
+    document.addEventListener('focusout', e => {
+      const el = e.target;
+      if(el.isContentEditable){
+        el.style.outline = '';
+        el.style.padding = '';
+      }
+    });
+  </script>
+
+  <footer style="text-align:center;margin-top:22px;color:var(--muted);font-size:.88rem">
+    Tip: replace the image URLs with your own photos (or local files) and edit the text directly in the page (fields are editable).
+  </footer>
+</body>
+</html>
+<!-- ENTRANCE BUTTON -->
+<div style="text-align:center; margin:30px 0;">
+  <button id="enterBtn">Enter Home Security Dashboard</button>
+</div>
+
+<!-- DASHBOARD SECTION (hidden at first) -->
+<section id="dashboard" class="dashboard" style="display:none;">
+  <h2>Home Security Monitoring Dashboard</h2>
+  <div class="sensors">
+    <div class="sensor-card">
+      <h3>PIR Motion Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Idle</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Smoke Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Clear</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Door & Window Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Closed</span></p>
+    </div>
+    <!-- ... continue with other requirements ... -->
+  </div>
+</section>
+
+<script>
+  // Show dashboard when button is clicked
+  document.getElementById("enterBtn").addEventListener("click", function(){
+    document.getElementById("dashboard").style.display = "block";
+    this.style.display = "none"; // hide the entrance button
+  });
+</script>
+
+<section class="dashboard">
+  <h2>Home Security Monitoring Dashboard</h2>
+  <div class="sensors">
+    <div class="sensor-card">
+      <h3>PIR Motion Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Idle</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Smoke Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Clear</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Door & Window Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Closed</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>ESP32 Microcontroller</h3>
+      <p>Status: <span class="sensor-status neutral">Connected</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Wi-Fi Module</h3>
+      <p>Status: <span class="sensor-status neutral">Online</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Buzzers</h3>
+      <p>Status: <span class="sensor-status neutral">Standby</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Smartphone</h3>
+      <p>Status: <span class="sensor-status neutral">Ready for Alerts</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Power Source</h3>
+      <p>Status: <span class="sensor-status ok">Stable</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Gas Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Normal</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Breadboard</h3>
+      <p>Status: <span class="sensor-status neutral">In Use</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Jumper Wires</h3>
+      <p>Status: <span class="sensor-status neutral">Connected</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>LCD Display</h3>
+      <p>Status: <span class="sensor-status neutral">Showing Data</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Fire Detector</h3>
+      <p>Status: <span class="sensor-status ok">No Fire</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Current Sensor</h3>
+      <p>Status: <span class="sensor-status ok">Normal Load</span></p>
+    </div>
+    <div class="sensor-card">
+      <h3>Camera</h3>
+      <p>Status: <span class="sensor-status neutral">Streaming...</span></p>
+    </div>
+  </div>
+</section>
